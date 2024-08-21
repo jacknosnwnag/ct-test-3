@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 quit = False
 
 #----Setup dataframe and query it here prior to creating visualization and UI functions----#
-Covid_df = pd.read_csv('data/country_wise_latest.csv')
-header=None,
-names=['Country', 'Confirmed cases', 'Deaths', 'Recovered','Deaths / 100 cases', 'Recovered / 100 Cases']
+Covid_df = pd.read_csv('Data/country_wise_latest.csv')
+
 Covidclean_df = Covid_df.drop(columns=['New deaths', 'New cases','New recovered','Deaths / 100 Recovered', 'Confirmed last week','1 week change','1 week % increase'])
 
 print(Covidclean_df)
@@ -21,17 +20,17 @@ def showUpdatedData():
 def showCharts():
     Covidclean_df.plot(
         kind='barh',  # Horizontal bar graph
-        x='Country',
+        x='Country/Region',
         y='Deaths',
         color='red',
-        alpha=0.6,
-        title='Deaths per Country'
+        alpha=0.6
+      
     )
     plt.xlabel('Number of Deaths')
-    plt.ylabel('Country')
+    plt.ylabel('Country/Region')
     plt.title('COVID-19 Deaths per Country')
     plt.show()
-    showCharts()
+   
 # Analysis of Data
 
 # Average deaths per country 
@@ -62,28 +61,30 @@ def userOptions():
     5 - Quit Program
         """)
     
-    try:
-        choice = int(input('Enter Selection: '))
 
-        if choice == 1:
-            avg_deaths()
-           
-        elif choice == 2:
-            avg_cases()
-          
-        elif choice == 3:
-            avg_case_deaths()
-            
-        elif choice == 4:
-            showCharts()
+    
+try: 
+    choice = int(input('Enter Selection: '))
 
-        elif choice == 5:
-            quit = True
-        else:
-            print('Please enter a number between 1 and 5.')
+    if choice == 1:
+        avg_deaths()
+        
+    elif choice == 2:
+        avg_cases()
+        
+    elif choice == 3:
+        avg_case_deaths()
+        
+    elif choice == 4:
+        showCharts()
 
-    except:
+    elif choice == 5:
+        quit = True
+    else:
         print('Please enter a number between 1 and 5.')
+
+except:
+    print('Please enter a number between 1 and 5.')
 
 while not quit:
     userOptions()
